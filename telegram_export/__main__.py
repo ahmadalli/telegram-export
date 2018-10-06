@@ -285,7 +285,7 @@ async def main(loop):
     exporter = Exporter(client, config, dumper, loop)
 
     try:
-        if args.download_past_media:SecondFactorPassword
+        if args.download_past_media:
             await exporter.download_past_media()
         else:
             await exporter.start()
