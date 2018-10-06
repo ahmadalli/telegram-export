@@ -271,22 +271,13 @@ async def main(loop):
         config['Dumper']['OutputDirectory'],
         config['TelegramAPI']['SessionName']
     )
-    if config.has_option('TelegramAPI', 'SecondFactorPassword'):
-        client = await (TelegramClient(
-                absolute_session_name,
-                config['TelegramAPI']['ApiId'],
-                config['TelegramAPI']['ApiHash'],
-                loop=loop,
-                proxy=proxy
-            ).start(config['TelegramAPI']['PhoneNumber'], password=config['TelegramAPI']['SecondFactorPassword']))
-    else:
-        client = await (TelegramClient(
-            absolute_session_name,
-            config['TelegramAPI']['ApiId'],
-            config['TelegramAPI']['ApiHash'],
-            loop=loop,
-            proxy=proxy
-        ).start(config['TelegramAPI']['PhoneNumber']))
+    client = await (TelegramClient(
+        absolute_session_name,
+        config['TelegramAPI']['ApiId'],
+        config['TelegramAPI']['ApiHash'],
+        loop=loop,
+        proxy=proxy
+    ).start(config['TelegramAPI']['PhoneNumber']))
 
     if args.list_dialogs or args.search_string:
         return await list_or_search_dialogs(args, client)
@@ -294,7 +285,7 @@ async def main(loop):
     exporter = Exporter(client, config, dumper, loop)
 
     try:
-        if args.download_past_media:
+        if args.download_past_media:SecondFactorPassword
             await exporter.download_past_media()
         else:
             await exporter.start()
